@@ -30,7 +30,7 @@ if __name__ == "__main__":
                 print(CRED + "Slot already taken." + CEND)
 
         else:
-            x, y = minimax.next_move(game.board, -1)
+            x, y = minimax.minimax(game.board, -1)
             if game.place(x, y, -1):
                 game.print()
                 if game.check(x, y, -1):

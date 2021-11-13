@@ -33,16 +33,15 @@ class Board:
                 return "_"
 
         f_vec = np.vectorize(f)
-        indexR = np.array([["01", "02", "03", "04", "05", "06",
-                            "07", "08", "09", "10", "11", "12", "13", "14", "15"]])
-        indexC = np.array([["  ", "01", "02", "03", "04", "05", "06",
-                            "07", "08", "09", "10", "11", "12", "13", "14", "15"]])
+        indexR = np.array([["00", "01", "02", "03", "04", "05", "06",
+                            "07", "08", "09", "10", "11", "12", "13", "14"]])
+        indexC = np.array([["  ", "00", "01", "02", "03", "04", "05", "06",
+                            "07", "08", "09", "10", "11", "12", "13", "14"]])
         copied = np.copy(self.board)
         copied = f_vec(copied)
         concat = np.concatenate((indexR, copied), axis=0)
         concated = np.concatenate((indexC.T, concat), axis=1)
         print("\n")
-
         print(tabulate(concated))
         print("\n")
 
