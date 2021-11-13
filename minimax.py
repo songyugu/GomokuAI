@@ -6,10 +6,9 @@ from random import randint
 
 
 def next_move(board, player):
-    oldboard = board[1:]
-    newboard = [x[1:] for x in oldboard]
+
     x, y = 0, 0
-    while newboard[x][y] != " _":
+    while board[x][y] != 0:
         x = randint(0, 14)
         y = randint(0, 14)
-    return x+1, y+1
+    return x, y
