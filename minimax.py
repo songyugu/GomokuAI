@@ -8,12 +8,13 @@ import numpy as np
 
 
 class AI:
-    def __init__(self, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES):
+    def __init__(self, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES):
         """
         Initialize the AI with two evalution scoring tables.
         """
         self.p_scores = pattern_scores
         self.b_scores = board_scores
+        self.depth = depth
 
     def possibles(self, board):
         """
@@ -68,7 +69,7 @@ class AI:
             b = min(b, value)
         return value
 
-    def minimax(self, board, player, depth=2):
+    def minimax(self, board, player):
         """
         This is the minimax algorithm. Player is either 1 (Black) or -1 (White).
         The player is considered to be maximizier.
@@ -87,7 +88,8 @@ class AI:
         # starting from very top MAX, which is the input player
         for i, next in enumerate(nexts):
             new_board = self.place(board, next, player)
-            neighbor = self.min_turn(new_board, depth-1, alpha, beta, -player)
+            neighbor = self.min_turn(
+                new_board, self.depth-1, alpha, beta, -player)
             if neighbor > value:
                 value = neighbor
                 next_step = next
