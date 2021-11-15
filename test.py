@@ -22,7 +22,7 @@ def train_heuristics(a1, a2, times=10):
         while not winning:
             # print(player)
             if player == 1:  # black's turn
-                x, y = ai1.minimax(game.board, player)
+                x, y = a1.minimax(game.board, player)
                 game.place(x, y, player)
                 if game.check(x, y, player):
                     winning = True
@@ -31,7 +31,7 @@ def train_heuristics(a1, a2, times=10):
                     player = -player
 
             else:
-                x, y = ai2.minimax(game.board, player)
+                x, y = a2.minimax(game.board, player)
                 game.place(x, y, player)
                 if game.check(x, y, player):
                     winning = True
