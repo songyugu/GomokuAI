@@ -1,19 +1,20 @@
 """
 This is the main entry where the game is played.
 """
-from board import Board
+from board import Game
 from minimax import AI
 
 
-def human_vs_ai():
+def human_vs_ai(size):
     """
     This function is where human player plays with AI in the terminal. 
     The human player plays first with Black (1) and AI with White (-1).
+    The board size can be other 7, 9, or 15.
     """
-    game = Board()
+    game = Game(size)
     player = 1
     winning = False
-    ai = AI()
+    ai = AI(size)
 
     CRED = '\033[92m'
     CEND = '\033[0m'
@@ -63,4 +64,4 @@ def human_vs_ai():
 
 if __name__ == "__main__":
 
-    human_vs_ai()
+    human_vs_ai(7)

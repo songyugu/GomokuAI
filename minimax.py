@@ -8,12 +8,13 @@ import numpy as np
 
 
 class AI:
-    def __init__(self, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES):
+    def __init__(self, size, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES):
         """
         Initialize the AI with two evalution scoring tables.
         """
         self.p_scores = pattern_scores
         self.b_scores = board_scores
+        self.size = size
         self.depth = depth
 
     def possibles(self, board):
@@ -21,8 +22,8 @@ class AI:
         This function returns a list of possible next slots.
         """
         lst = []
-        for i in range(15):
-            for j in range(15):
+        for i in range(self.size):
+            for j in range(self.size):
                 if board[i][j] == 0:
                     lst.append((i, j))
         return lst

@@ -3,10 +3,11 @@ This module contains testing for different AIs.
 """
 
 from minimax import AI
-from board import Board
+from board import Game
 
-ai1 = AI(depth=1)
-ai2 = AI(depth=2)
+SIZE = 7
+ai1 = AI(size=SIZE, depth=1)
+ai2 = AI(size=SIZE, depth=2)
 
 
 def train_heuristics(a1, a2, times=10):
@@ -15,7 +16,7 @@ def train_heuristics(a1, a2, times=10):
     """
     counts = [0, 0]
     for i in range(times):
-        game = Board()
+        game = Game(SIZE)
         player = 1
         winning = False
 

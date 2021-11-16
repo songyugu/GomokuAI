@@ -7,9 +7,10 @@ import numpy as np
 from tabulate import tabulate
 
 
-class Board:
-    def __init__(self) -> None:
-        self.board = np.zeros((15, 15)).astype(int)
+class Game:
+    def __init__(self, size) -> None:
+        self.board = np.zeros((size, size)).astype(int)
+        self.size = size
 
     def place(self, x: int, y: int, player: int):
         """
@@ -33,10 +34,12 @@ class Board:
                 return "_"
 
         f_vec = np.vectorize(f)
-        indexR = np.array([["00", "01", "02", "03", "04", "05", "06",
-                            "07", "08", "09", "10", "11", "12", "13", "14"]])
-        indexC = np.array([["  ", "00", "01", "02", "03", "04", "05", "06",
-                            "07", "08", "09", "10", "11", "12", "13", "14"]])
+        index_r = ["00", "01", "02", "03", "04", "05", "06",
+                   "07", "08", "09", "10", "11", "12", "13", "14"]
+        index_c = ["  ", "00", "01", "02", "03", "04", "05", "06",
+                   "07", "08", "09", "10", "11", "12", "13", "14"]
+        indexR = np.array([index_r[0:self.size]])
+        indexC = np.array([index_c[0:self.size+1]])
         copied = np.copy(self.board)
         copied = f_vec(copied)
         concat = np.concatenate((indexR, copied), axis=0)
@@ -58,7 +61,7 @@ class Board:
                 continue
             cx, cy = x, y
             count = 0
-            while 0 <= cx < 15 and 0 <= cy < 15 and self.board[cx][cy] == player:
+            while 0 <= cx < self.size and 0 <= cy < self.size and self.board[cx][cy] == player:
                 count += 1
                 cx += i
                 cy += j
