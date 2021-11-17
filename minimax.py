@@ -8,7 +8,7 @@ import numpy as np
 
 
 class AI:
-    def __init__(self, size, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES_7):
+    def __init__(self, size, player=-1, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES_7):
         """
         Initialize the AI with two evalution scoring tables.
         """
@@ -16,6 +16,7 @@ class AI:
         self.b_scores = board_scores
         self.size = size
         self.depth = depth
+        self.my_player = player
 
     def possibles(self, board):
         """
@@ -43,7 +44,7 @@ class AI:
         Helper for maximizer.
         """
         if depth == 0:
-            return h.board_eval(board, -1, self.p_scores, self.b_scores)
+            return h.board_eval(board, self.my_player, self.p_scores, self.b_scores)
         value = float("-inf")
         for next in self.possibles(board):
             new_board = self.place(board, next, player)
@@ -59,7 +60,7 @@ class AI:
         Helper for minimizer.
         """
         if depth == 0:
-            return h.board_eval(board, 1, self.p_scores, self.b_scores)
+            return h.board_eval(board, self.my_player, self.p_scores, self.b_scores)
         value = float("inf")
         for next in self.possibles(board):
             new_board = self.place(board, next, player)
