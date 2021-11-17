@@ -8,7 +8,7 @@ import numpy as np
 
 
 class AI:
-    def __init__(self, size, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES):
+    def __init__(self, size, depth=1, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES_7):
         """
         Initialize the AI with two evalution scoring tables.
         """
