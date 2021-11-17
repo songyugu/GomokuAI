@@ -62,28 +62,31 @@ def board_eval(board, player, patternS, boardS) -> float:
     oppo_pattern_core = count_pattern_score(oppo_newBoard, patternS)
     oppo_board_score = player * np.sum(np.multiply(board, boardS))
     oppo_score = oppo_pattern_core + oppo_board_score
-    return self_score - 1.5*oppo_score
+    return self_score - 1.0*oppo_score
 
 
 def count_pattern_score(board, patternS):
-    print(board)
+    """
+    This function returns the score of counting all patterns
+    """
+    # print(board)
     score = 0
     for pattern in patternS:
         count = 0
         count += search_horizontal(board, pattern)
-        # count += search_vertical(board, pattern)
-        # count += search_diagonal(board, pattern)
+        count += search_vertical(board, pattern)
+        count += search_diagonal(board, pattern)
         value = patternS[pattern]
         if count:
-            print(str(count) + '*' + str_format(value))
+            # print(str(count) + '*' + str_format(value))
             score += count * value
     return score
 
 
 def search_horizontal(board, pattern):
-    # rows = [row for row in board]
-    # rows = preprocess(rows, player)
-
+    """
+    This function returns the occurence of pattern in all rows
+    """
     count = 0
     for row in board:
         s = "".join(map(str, row))
@@ -94,9 +97,9 @@ def search_horizontal(board, pattern):
 
 
 def search_vertical(board, pattern):
-    # cols = [col for col in board.copy().T]
-    # cols = preprocess(cols, player)
-
+    """
+    This function returns the occurence of pattern in all cols
+    """
     count = 0
     for col in board.copy().T:
         s = "".join(map(str, col))
@@ -107,12 +110,14 @@ def search_vertical(board, pattern):
 
 
 def search_diagonal(board, pattern):
+    """
+    This function returns the occurence of pattern in all diagonals
+    """
     board = board.copy()
     diags = [board[::-1, :].diagonal(i)
              for i in range(-board.shape[0]+1, board.shape[1])]
     diags.extend(board.diagonal(i)
                  for i in range(board.shape[1]-1, -board.shape[0], -1))
-    # diags = preprocess(diags, player)
 
     count = 0
     for diag in diags:
@@ -123,14 +128,10 @@ def search_diagonal(board, pattern):
     return count
 
 
-# def preprocess(lsts, player):
-#     for lst in lsts:
-#         for x in lst:
-#             x = player * x + 2
-#     return lsts
-
-
 def get_patterns(pattern):
+    """
+    Gets the specifc models of each pattern
+    """
     if pattern == '5':
         return ['33333']
     if pattern == 'open4':

@@ -51,6 +51,11 @@ def human_vs_ai(size):
 
         else:
             x, y = ai.minimax(game.board, player)
+            if x == -1 and y == -1:
+                CRED = '\033[91m'
+                CEND = '\033[0m'
+                print(CRED+"Tie."+CEND)
+                return
             if game.place(x, y, player):
                 game.print()
                 if game.check(x, y, player):

@@ -8,7 +8,7 @@ import numpy as np
 
 
 class AI:
-    def __init__(self, size, depth=1, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES_7):
+    def __init__(self, size, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES_7):
         """
         Initialize the AI with two evalution scoring tables.
         """
@@ -80,12 +80,11 @@ class AI:
         value = float("-inf")
 
         nexts = self.possibles(board)
-        next_step = nexts[0]
 
         if not nexts:  # no more available slots
-            print("Tie.")
-            return
+            return (-1, -1)
 
+        next_step = nexts[0]
         # starting from very top MAX, which is the input player
         for i, next in enumerate(nexts):
             new_board = self.place(board, next, player)
