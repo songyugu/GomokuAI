@@ -42,9 +42,9 @@ def compare_depths(s, d1, d2, times=1):
                     counts[1] += 1
                 else:
                     player = -player
-    game.print()
+    # game.print()
     return counts
 
 
-counts = compare_depths(7, 1, 2)
-print(counts)
+# counts = compare_depths(7, 1, 2)
+# print(counts)

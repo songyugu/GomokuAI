@@ -2,13 +2,14 @@
 This module contains our Minimax AI.
 """
 
-from random import randint
+# from random import randint
+import random
 import heuristics as h
 import numpy as np
 
 
 class AI:
-    def __init__(self, size, player=-1, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES_7):
+    def __init__(self, size, player=-1, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES_9):
         """
         Initialize the AI with two evalution scoring tables.
         """
@@ -86,6 +87,8 @@ class AI:
             return (-1, -1)
 
         next_step = nexts[0]
+        bests = []
+        # maxscore = float("-inf")
         # starting from very top MAX, which is the input player
         for i, next in enumerate(nexts):
             new_board = self.place(board, next, player)
@@ -93,7 +96,11 @@ class AI:
                 new_board, self.depth-1, alpha, beta, -player)
             if neighbor > value:
                 value = neighbor
-                next_step = next
+                bests = [next]
+                # next_step = next
+            elif neighbor == value:
+                bests.append(next)
+            next_step = random.choice(bests)
             alpha = max(alpha, value)
             # print(str(i)+" "+str(value))
 
