@@ -2,19 +2,27 @@
 This module contains our Minimax AI.
 """
 
-# from random import randint
 import random
 import heuristics as h
 import numpy as np
 
 
 class AI:
-    def __init__(self, size, player=-1, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=h.BOARD_SCORES_9):
+    def __init__(self, size, ratio=1.0, player=-1, depth=2, pattern_scores=h.PATTERN_SCORES, board_scores=True):
         """
         Initialize the AI with two evalution scoring tables.
         """
         self.p_scores = pattern_scores
-        self.b_scores = board_scores
+        if board_scores:
+            if size == 15:
+                self.b_scores = np.array(h.BOARD_SCORES_15)
+            elif size == 9:
+                self.b_scores = np.array(h.BOARD_SCORES_9)
+            else:
+                self.b_scores = np.array(h.BOARD_SCORES_7)
+        else:
+            self.b_scores = np.zeros((size, size))
+        self.ratio = ratio
         self.size = size
         self.depth = depth
         self.my_player = player
@@ -45,7 +53,7 @@ class AI:
         Helper for maximizer.
         """
         if depth == 0:
-            return h.board_eval(board, self.my_player, self.p_scores, self.b_scores)
+            return h.board_eval(board, self.my_player, self.p_scores, self.b_scores, self.ratio)
         value = float("-inf")
         for next in self.possibles(board):
             new_board = self.place(board, next, player)
@@ -61,7 +69,7 @@ class AI:
         Helper for minimizer.
         """
         if depth == 0:
-            return h.board_eval(board, self.my_player, self.p_scores, self.b_scores)
+            return h.board_eval(board, self.my_player, self.p_scores, self.b_scores, self.ratio)
         value = float("inf")
         for next in self.possibles(board):
             new_board = self.place(board, next, player)
@@ -79,7 +87,7 @@ class AI:
         """
         alpha = float("-inf")
         beta = float("inf")
-        value = float("-inf")
+        best_score = float("-inf")
 
         nexts = self.possibles(board)
 
@@ -88,20 +96,18 @@ class AI:
 
         next_step = nexts[0]
         bests = []
-        # maxscore = float("-inf")
         # starting from very top MAX, which is the input player
         for i, next in enumerate(nexts):
             new_board = self.place(board, next, player)
             neighbor = self.min_turn(
                 new_board, self.depth-1, alpha, beta, -player)
-            if neighbor > value:
-                value = neighbor
+            if neighbor > best_score:
+                best_score = neighbor
                 bests = [next]
-                # next_step = next
-            elif neighbor == value:
+            elif neighbor == best_score:
                 bests.append(next)
             next_step = random.choice(bests)
-            alpha = max(alpha, value)
+            alpha = max(alpha, best_score)
             # print(str(i)+" "+str(value))
 
         return next_step

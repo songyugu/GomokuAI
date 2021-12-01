@@ -69,4 +69,4 @@ def human_vs_ai(size):
 
 if __name__ == "__main__":
 
-    human_vs_ai(7)
+    human_vs_ai(9)

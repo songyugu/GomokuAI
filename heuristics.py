@@ -51,7 +51,7 @@ PATTERN_SCORES = {
 }
 
 
-def board_eval(board, player, patternS, boardS) -> float:
+def board_eval(board, player, patternS, boardS, ratio) -> float:
     """
     This function returns an float representing the heuristics of the given board.
     patternS is a dictionary with (pattern, value) pairs
@@ -72,7 +72,7 @@ def board_eval(board, player, patternS, boardS) -> float:
     oppo_pattern_core = count_pattern_score(oppo_newBoard, patternS)
     oppo_board_score = player * np.sum(np.multiply(board, boardS))
     oppo_score = oppo_pattern_core + oppo_board_score
-    return self_score - 1.0*oppo_score
+    return self_score - ratio*oppo_score
 
 
 def count_pattern_score(board, patternS):
