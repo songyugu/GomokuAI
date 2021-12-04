@@ -20,6 +20,8 @@ def test_helper(times, ai1, ai2, s):
             # print(player)
             if player == 1:  # black's turn
                 x, y = ai1.minimax(game.board, player)
+                if x == -1 and y == -1:
+                    break
                 game.place(x, y, player)
                 if game.check(x, y, player):
                     winning = True
@@ -29,6 +31,8 @@ def test_helper(times, ai1, ai2, s):
 
             else:
                 x, y = ai2.minimax(game.board, player)
+                if x == -1 and y == -1:
+                    break
                 game.place(x, y, player)
                 if game.check(x, y, player):
                     winning = True
