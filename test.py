@@ -39,7 +39,7 @@ def test_helper(times, ai1, ai2, s):
                     counts[1] += 1
                 else:
                     player = -player
-    # game.print()
+        game.print()
     return counts
 
 
@@ -85,5 +85,16 @@ def compare_boardS(s, times=1, first=True):
     results = test_helper(times, ai1, ai2, s)
     return results
 
-# counts = compare_depths(7, 1, 2)
-# print(counts)
+
+def compare_patternS(s, p1, p2, times=1):
+    """
+    This function returns number of wins of the given two AI. 
+    s: size of the board.
+    p1: pattern function of first AI (black, 1)
+    p2: pattern function of second AI (white, -1)
+    """
+    ai1 = AI(size=s, player=1, pattern_scores=p1)
+    ai2 = AI(size=s, pattern_scores=p2)
+
+    results = test_helper(times, ai1, ai2, s)
+    return results
