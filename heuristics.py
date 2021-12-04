@@ -50,6 +50,16 @@ PATTERN_SCORES = {
     'half2': 100
 }
 
+PATTERN_SCORES_2 = {
+    '5': 1000000,
+    'open4': 500000,
+    'half4': 10000,
+    'open3': 1000,
+    'half3': 200,
+    'open2': 20,
+    'half2': 10
+}
+
 
 def board_eval(board, player, patternS, boardS, ratio) -> float:
     """
